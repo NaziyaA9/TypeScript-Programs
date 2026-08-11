@@ -1,28 +1,14 @@
-const getStudent = (name: string): string => {
-    return `Student: ${name}`;
-};
-
-const findGCD = (a: number, b: number): number => {
-    while (b !== 0) {
-        let temp = b;
-        b = a % b;
-        a = temp;
-    }
-    return a;
-};
-
-const findLCM = (a: number, b: number): number => {
-    return (a * b) / findGCD(a, b);
-};
-
-let num1: number = 24;
-let num2: number = 36;
-
-console.log(getStudent("Vineetha"));
-console.log(`Numbers: ${num1}, ${num2}`);
-
-let gcd = findGCD(num1, num2);
-let lcm = findLCM(num1, num2);
-
-console.log(`GCD = ${gcd}`);
-console.log(`LCM = ${lcm}`);
+function calculateTotal(price:number,tax:number):number{
+    return price +(price*tax);
+}
+const calculateArrow=(price:number,tax:number):number=>{
+    return price+(price*tax);
+}
+const getWelcome=(theatre:string):string=>`Welcome to ${theatre} Cinemas!`;
+const ticketPrice:number=250;
+const gstRate:number=0.18;
+console.log(getWelcome("PVR"));
+const total1=calculateTotal(ticketPrice,gstRate);
+console.log(`Total Ticket Price: ${total1}`);
+const total2=calculateArrow(ticketPrice,gstRate);
+console.log(`Total Ticket Price using Arrow Function: ${total2}`);

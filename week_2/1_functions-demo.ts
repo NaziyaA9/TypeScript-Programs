@@ -1,30 +1,28 @@
-
-function getStudent(name: string): string {
-    return `Student: ${name}`;
+//Parameter & Return Types
+function greet(name:string):string{
+    return `Namaste, ${name}!`;
 }
-
-function findGCD(a: number, b: number): number {
-    while (b !== 0) {
-        let temp = b;
-        b = a % b;
-        a = temp;
+//Default Parameter(=)
+function getLocation(city:string ="Hyderabad"):string{
+    return `Location: ${city}`;
+}
+//Optional Parameter(?)
+function sendAlert(PhNumber:number,message?:string):void{
+    console.log(`Sending SMS to ${PhNumber}...`);
+    if(message){
+        console.log(`Content: ${message}`);
     }
-    return a;
 }
-
-function findLCM(a: number, b: number): number {
-    return (a * b) / findGCD(a, b);
+//Rest Parameter(using...)
+function scores(...score:number[]):number{
+    return score.reduce((total,current)=>total+current,0);
 }
-
-
-let num1: number = 12;
-let num2: number = 18;
-
-console.log(getStudent("Nandini"));
-console.log(`Numbers: ${num1}, ${num2}`);
-
-let gcd = findGCD(num1, num2);
-let lcm = findLCM(num1, num2);
-
-console.log(`GCD = ${gcd}`);
-console.log(`LCM = ${lcm}`);
+//Experiment Outputs
+console.log(greet("Vishnu"));
+//console.log(greet(1));
+console.log(getLocation("Bhimavaram"));
+console.log(getLocation());
+sendAlert(1234567890, "Hello, Vishnu!");
+sendAlert(1234567890);
+const total=scores(85, 90, 78, 92);
+console.log(`Total Score: ${total}`);
