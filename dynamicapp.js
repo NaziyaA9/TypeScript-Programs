@@ -1,34 +1,59 @@
-const express = require("express");
+const express = require('express');
 const app = express();
+
+const todoArr = [{
+    id: 1,
+    title: "learn express",
+    tags: ['nodejs', "express"],
+    status: { "pending": true, statusid: 1 }
+}, {
+    id: 2,
+    title: "learn express",
+    tags: ['nodejs', "express"],
+    status: { "pending": true, statusid: 1 }
+}];
+
+app.use(express.json());
+
+app.get("/", (req, res) => {
+    res.send("Welcome to the Express server!");
+});
+
+app.get("/about", (req, res) => {
+    res.send("This is the about page.");
+});
+
+app.get("/todos/:id", (req, res) => {
+    const paramsId = parseInt(req.params.id);
+    const todo = todoArr.find((todo) => todo.id === paramsId);
+    res.send(todo);
+    console.log(todo);
+});
+
+
+/* This route is to get a todo item by its id and status.*/
+app.get("/todos/:id/status/:status", (req, res) => {
+    const paramsId = parseInt(req.params.id);
+    const paramsStatus = req.params.status;
+    const todo = todoArr.find((todo) => todo.id === paramsId && todo.status === paramsStatus);
+    res.send(todo);
+    console.log(todo);
+});
+
+/* This route is to get status of a todo item by its id.*/
+app.get("/todos/:id/status", (req, res) => {
+    const paramsId = parseInt(req.params.id);
+    const todo = todoArr.find((todo) => todo.id === paramsId);
+    res.send(todo.status);
+    console.log(todo.status);
+});
+
+
+/* if we chnage the ordering of both routes, then the route with two params will be executed first and the 
+route with one param will not be executed.*/
+
+
 const PORT = 3000;
-app.get("/user/:id", (req, res) => {
-  const userId = req.params.id;
-  res.send(`
-    <h1>User Profile</h1>
-    <p>You are viewing the profile for User ID: <strong>${userId}</strong></p>
-  `);
-});
-
-app.get("/flights/:from/:to", (req, res) => {
-  const { from, to } = req.params;
-
-  res.send(`
-    <h1>Flight Search</h1>
-    <p>Searching for flights departing from <b>${from}</b> arriving at <b>${to}</b>.</p>
-  `);
-});
-
-app.get("/search", (req, res) => {
-  const category = req.query.category;
-  const sort = req.query.sort;
-
-  res.json({
-    message: "Search Results",
-    filteringBy: category || "None",
-    sortingBy: sort || "Default"
-  });
-});
-
 app.listen(PORT, () => {
-  console.log(`Dynamic server running at http://localhost:${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
